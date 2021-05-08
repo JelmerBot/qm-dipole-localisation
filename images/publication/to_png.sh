@@ -1,0 +1,1 @@
+convert -quality 90 -density 300x300  "$1" "${1%.pdf}.png"
