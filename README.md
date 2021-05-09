@@ -50,7 +50,7 @@ Bot, D.M., Wolf, B.J., van Netten, S.M. (2021). The Quadrature Method: a Novel D
 ```
 @article{bot2021quadrature,
 title = {The Quadrature Method: a Novel Dipole Localisation Algorithm for Artificial Lateral Lines Compared to State of the Art},
-author = {Bot, Daniël M., Wolf, Ben J., van Netten, Sietse M.},
+author = {Bot, Daniël M., Wolf, Ben J. and van Netten, Sietse M.},
 journal = {Sensors},
 volume = {xx},
 number = {yy},
