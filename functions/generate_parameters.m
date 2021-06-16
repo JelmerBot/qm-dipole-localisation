@@ -6,7 +6,7 @@ function params = generate_parameters()
 narginchk(0, 0)
 nargoutchk(1, 1)
 
-% Control the program's output
+% Control the programs output
 params.write_output = true;
 params.print_messages = true;
 params.show_plots = ~isdeployed && false;
@@ -51,6 +51,7 @@ params.domain = domain;
 % Configure training, validation, and testing
 experiment.test_source_distance = 0.01; 
 experiment.train_source_distances = [0.01 0.03 0.05 0.09];
+experiment.higher_noise_levels = [1e-4 1e-3, 1.8e-2]; % based on abdulsadda and kottapalli
 experiment.input_modes = {'x+y', 'x', 'y', 'x|y'};
 experiment.n_fold = 5;
 params.experiment = experiment;
@@ -157,8 +158,7 @@ params.mlp = mlp;
 % The implementation is memory bound. These values limit how much memory
 % is used per iteration at several stages in the program. The values are
 % tuned for a PC with 16G RAM when the code is run in matlab. When the code
-% is deployed (compiled) the values are tuned for a high performance computer 
-% with (64G RAM).
+% is deployed (compiled) the values are tuned for the cluster (64G RAM).
 if isdeployed % cluster
     % The simulation computes the velocity and LCMV prediction of
     % multiple sources in one iteration. This value determines how many
@@ -197,7 +197,7 @@ end
 
 function name = make_sweep_name()
     if isdeployed
-        base_folder = '/data/';
+        base_folder = '/data/p273023';
     else
         base_folder = './data/';
     end

@@ -1,5 +1,5 @@
 %% Introduction
-% Combines all predictions into two csv files.
+% Create plots of the training set experiment
 
 %% Setup
 addpath(genpath('./functions'))
@@ -10,9 +10,9 @@ pre_process_figure();
 % Processing variables
 cell_size = 0.02;
 
-% Make sure to update these when you've ran the simulation!
 input_folder_data = './data/20_05_21/';
 input_folder_sensors = './data/20_05_21/';
+input_folder_noise = ["./data/21_06_11/", "./data/21_06_12"];
 output_folder = './data/final_csv/';
 
 %% Merge output test_methods_data
@@ -116,3 +116,53 @@ predictions = removevars(predictions, {'prediction', 'source', 'source_bin'});
 % write as csv
 writetable(predictions, [output_folder, 'predictions_input_mode.csv'])
 
+
+%% Merge output test_methods_noise
+load(fullfile(input_folder_noise(1), 'params_noise0.001.mat'));
+merged = [];
+
+for input_folder = input_folder_noise
+    files = dir(fullfile(input_folder, 'predictions_noise*.mat'));
+    
+    for idx = 1:length(files)
+        load(fullfile(input_folder, files(idx).name))
+        name = files(idx).name;
+        pos = strfind(name, '_noise');
+        noise = str2double(name(pos+6:end-4));
+        predictions.noise = repmat(noise, height(predictions), 1);
+        merged = [merged; predictions];
+        clear predictions
+    end
+end
+
+predictions = merged;
+predictions.Properties.VariableNames{1} = 'method';
+predictions.method = categorical(predictions.method);
+
+% Add location bins
+predictions.source_bin = compute_bins(predictions.source, cell_size);
+
+% Add errors
+predictions.prediction_error = compute_prediction_errors(predictions.prediction, predictions.source, params);
+predictions.location_error = compute_location_error(predictions.prediction, predictions.source);
+predictions.orientation_error = compute_orientation_error(predictions.prediction, predictions.source);
+predictions.orientation_error_no_phase = -abs(predictions.orientation_error - pi/2) + pi/2;
+
+% Split components for csv write
+predictions.x_predicted = predictions.prediction(:, 1);
+predictions.y_predicted = predictions.prediction(:, 2);
+predictions.orientation_predicted = predictions.prediction(:, 3);
+
+predictions.x_source = predictions.source(:, 1);
+predictions.y_source = predictions.source(:, 2);
+predictions.orientation_source = predictions.source(:, 3);
+
+predictions.x_bin = predictions.source_bin(:, 1);
+predictions.y_bin = predictions.source_bin(:, 2);
+predictions.orientation_bin = predictions.source_bin(:, 3);
+
+% drop vector columns
+predictions = removevars(predictions, {'prediction', 'source', 'source_bin'});
+
+% write as csv
+writetable(predictions, [output_folder, 'predictions_noise.csv'])

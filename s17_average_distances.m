@@ -19,7 +19,7 @@ min_distances = [0.09, 0.05, 0.03, 0.01];
 avg_min_loc = zeros(size(min_distances));
 avg_min_azi = zeros(size(min_distances));
 
-idx = 1
+idx = 1;
 for f = files'   
     load(f{1});
     sources = train_sources;
