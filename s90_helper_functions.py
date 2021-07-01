@@ -59,7 +59,7 @@ def configure_matplotlib():
 
     # -- font settings for latex figures
     mpl.rcParams['font.family'] = 'serif'
-    mpl.rcParams['font.serif'] = ["TeX Gyre Pagella"]    # requires ttf installation :(
+    mpl.rcParams['font.serif'] = ["TeX Gyre Pagella"]    # may require manual installation
     mpl.rcParams['font.size'] = 10                       # LaTeX default is 10pt font.
     mpl.rcParams['axes.labelsize'] = 10          
     mpl.rcParams['legend.fontsize'] = 8
@@ -70,7 +70,7 @@ def configure_matplotlib():
     mpl.backend_bases.register_backend('pdf', FigureCanvasPgf)
     mpl.rcParams['savefig.format'] = 'pdf'
     mpl.rcParams['savefig.dpi'] = 300
-    mpl.rcParams['axes.unicode_minus'] = False
+    mpl.rcParams['axes.unicode_minus'] = True
     mpl.rcParams['text.usetex'] = False
     mpl.rcParams['pgf.texsystem'] = 'lualatex'     # Only applied at saving
     mpl.rcParams['pgf.preamble'] = r'\usepackage[T1]{fontenc}'+ \
@@ -96,9 +96,9 @@ def plot_spatial_heatmap(x_col, y_col, value_col, value_levels,
     ax = plt.gca()
     ax.set_aspect('equal','box')
     ax.set_xticks(scale_ticks(xticks, ax.get_xlim()))
-    ax.set_xticklabels(xticks)
+    ax.set_xticklabels([f'{l}'.replace('-', '\N{MINUS SIGN}') for l in xticks])
     ax.set_yticks(scale_ticks(yticks, ax.get_ylim()))
-    ax.set_yticklabels(yticks, rotation=0)
+    ax.set_yticklabels([f'{l}'.replace('-', '\N{MINUS SIGN}') for l in yticks], rotation=0)
     ax.set_xlabel(r'\(x\) (\si{m})')
     ax.set_ylabel(r'\(y\) (\si{m})')
     
@@ -295,4 +295,4 @@ def groupedStackedBars(data, group, bar, stack, value,
     tick_positions = bar_positions.T.flatten()[empty_bars_left:]
     tick_labels =  np.tile(bar_labels, num_groups)[empty_bars_left:]
     plt.xticks(tick_positions, tick_labels, rotation=bar_label_rotation)
-    plt.legend(stack_labels, title=stack_title)
+    plt.legend(stack_labels, title=stack_title, loc='upper right')
