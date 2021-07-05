@@ -42,22 +42,24 @@ Bot, D.M., Wolf, B.J., & van Netten, S.M. (2021). Dipole localisation prediction
 ```
 
 ### Publication
+[![DOI:10.3390/s21134558](https://zenodo.org/badge/DOI/10.3390/s21134558.svg)](https://doi.org/10.3390/s21134558)
 
 ```
-Bot, D.M., Wolf, B.J., van Netten, S.M. (2021). The Quadrature Method: a Novel Dipole Localisation Algorithm for Artificial Lateral Lines Compared to State of the Art. Sensors, xx(yy), zzzz-zzzz. http://doi.org/oooooo
+Bot, D.M., Wolf, B.J., van Netten, S.M. (2021). The Quadrature Method: a Novel Dipole Localisation Algorithm for Artificial Lateral Lines Compared to State of the Art. Sensors, 21(13), 4558.  https://doi.org/10.3390/s21134558
 ```
 
 ```
-@article{bot2021quadrature,
-title = {The Quadrature Method: a Novel Dipole Localisation Algorithm for Artificial Lateral Lines Compared to State of the Art},
-author = {Bot, Daniël M. and Wolf, Ben J. and van Netten, Sietse M.},
-journal = {Sensors},
-volume = {xx},
-number = {yy},
-pages = {zzzz-zzzz},
-year = {2021},
-publisher = {Molecular Diversity Preservation International},
-doi = {oooooo}
+@Article{s21134558,
+AUTHOR = {Bot, Daniël M. and Wolf, Ben J. and van Netten, Sietse M.},
+TITLE = {The Quadrature Method: A Novel Dipole Localisation Algorithm for Artificial Lateral Lines Compared to State of the Art},
+JOURNAL = {Sensors},
+VOLUME = {21},
+YEAR = {2021},
+NUMBER = {13},
+ARTICLE-NUMBER = {4558},
+URL = {https://www.mdpi.com/1424-8220/21/13/4558},
+ISSN = {1424-8220},
+DOI = {10.3390/s21134558}
 }
 ```
 
